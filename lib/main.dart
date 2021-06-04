@@ -12,7 +12,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isOn = false;
+  var isOff = true;
 
   // bool _hasFlashlight = false;
   // initFlashlight() async {
@@ -24,10 +24,10 @@ class _MyAppState extends State<MyApp> {
   // }
 
   void controlTorch() {
-    if (isOn) {
+    if (isOff) {
       Flashlight.lightOn();
       setState(() {
-        isOn = !isOn;
+        isOff = !isOff;
       });
       Fluttertoast.showToast(
           msg: "You Turned Flashlight ON",
@@ -36,10 +36,10 @@ class _MyAppState extends State<MyApp> {
           timeInSecForIosWeb: 1,
           textColor: Colors.black,
           fontSize: 14.0);
-    } else if (!isOn) {
+    } else if (!isOff) {
       Flashlight.lightOff();
       setState(() {
-        isOn = !isOn;
+        isOff = !isOff;
       });
       Fluttertoast.showToast(
           msg: "You Turned Flashlight OFF",
@@ -54,6 +54,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.white,
+      ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.black,
@@ -64,6 +67,7 @@ class _MyAppState extends State<MyApp> {
             style: TextStyle(
               fontSize: 40,
               fontWeight: FontWeight.bold,
+              color: Colors.white,
               fontFamily: 'Teko',
             ),
           ),
@@ -83,12 +87,12 @@ class _MyAppState extends State<MyApp> {
                 child: Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: isOn ? Colors.green[400] : Colors.red[400],
+                    color: isOff ? Colors.red[400] : Colors.green[400],
                     boxShadow: [
                       BoxShadow(
-                        color: isOn
-                            ? Colors.green[600].withOpacity(0.5)
-                            : Colors.red[600].withOpacity(0.5),
+                        color: isOff
+                            ? Colors.red[600].withOpacity(0.5)
+                            : Colors.green[600].withOpacity(0.5),
                         offset: Offset(0, 5),
                         blurRadius: 40,
                       ),
@@ -109,10 +113,10 @@ class _MyAppState extends State<MyApp> {
                                 ),
                               ),
                               Text(
-                                isOn ? 'ON' : 'OFF',
+                                isOff ? 'ON' : 'OFF',
                                 style: TextStyle(
                                   fontSize: 35,
-                                  color: isOn ? Colors.white : Colors.black,
+                                  color: isOff ? Colors.white : Colors.black,
                                 ),
                               ),
                             ],
